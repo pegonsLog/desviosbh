@@ -1,6 +1,6 @@
-import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -28,17 +28,16 @@ import { Observable } from 'rxjs';
     MatProgressSpinnerModule,
     MatGridListModule,
     MatIconModule,
-    ReactiveFormsModule,
-    NgIf,
-    NgFor,
     CommonModule,
+    FormsModule
+
   ],
   templateUrl: './desvios-list.component.html',
   styleUrl: './desvios-list.component.scss',
 })
 export class DesviosListComponent {
   desviosFire$!: Observable<any[]>;
-  queryField!: FormControl<any>;
+  queryField = new FormControl();
   value: string = '';
   regionais: string[] = [];
   regional: string = 'GERAL';
