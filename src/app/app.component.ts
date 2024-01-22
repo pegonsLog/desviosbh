@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
+import { DesviosListComponent } from './desvios/desvios-list/desvios-list.component';
 
 @Component({
   selector: 'app-root',
