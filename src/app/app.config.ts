@@ -8,6 +8,6 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    provideAnimations(), importProvidersFrom(provideFirebaseApp(() => initializeApp({"projectId":"desviosbh","appId":"1:11459063109:web:4e46409327925a9a13e22c","storageBucket":"desviosbh.appspot.com","apiKey":"AIzaSyCNAIbh15WqGIwYmnFgHuUec5bhy5Gbwe4","authDomain":"desviosbh-d95a7.firebaseapp.com","messagingSenderId":"11459063109"}))), importProvidersFrom(provideFirestore(() => getFirestore()))
+    provideAnimations(), importProvidersFrom(provideFirebaseApp(() => initializeApp({"projectId":"desviosbh","appId":"1:11459063109:web:4e46409327925a9a13e22c","storageBucket":"desviosbh.appspot.com","apiKey":"AIzaSyCNAIbh15WqGIwYmnFgHuUec5bhy5Gbwe4","authDomain":"desviosbh-d95a7.firebaseapp.com","messagingSenderId":"11459063109"}))), importProvidersFrom(provideFirestore(() => getFirestore())), importProvidersFrom(provideFirebaseApp(() => initializeApp({"projectId":"desviosbh","appId":"1:11459063109:web:4e46409327925a9a13e22c","storageBucket":"desviosbh.appspot.com","apiKey":"AIzaSyCNAIbh15WqGIwYmnFgHuUec5bhy5Gbwe4","authDomain":"desviosbh-d95a7.firebaseapp.com","messagingSenderId":"11459063109"}))), importProvidersFrom(provideFirestore(() => getFirestore()))
   ]
 };
