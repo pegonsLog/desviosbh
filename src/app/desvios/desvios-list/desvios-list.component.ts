@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Firestore, collection, collectionData } from '@angular/fire/firestore';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -12,6 +13,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Desvio } from '../../model/desvio';
 
 @Component({
   selector: 'app-desvios-list',
@@ -30,13 +32,15 @@ import { Observable } from 'rxjs';
     MatIconModule,
     CommonModule,
     FormsModule
-
   ],
   templateUrl: './desvios-list.component.html',
   styleUrl: './desvios-list.component.scss',
 })
 export class DesviosListComponent {
-  desviosFire$!: Observable<any[]>;
+
+  private firestore: Firestore = inject(Firestore);
+  desviosFire$: Observable<any>;
+
   queryField = new FormControl();
   value: string = '';
   regionais: string[] = [];
@@ -46,22 +50,22 @@ export class DesviosListComponent {
   // itemsRef: AngularFireList<any>;
 
   constructor(
-    // private desviosService: DesviosService,
     private router: Router
-  ) // private db: AngularFireDatabase
-  {
-    // this.itemsRef = this.db.list('desvios/');
-    // this.desviosFire$ = this.itemsRef.snapshotChanges().pipe(
-    //   map((changes) =>
-    //     changes.map((c) => ({ key: c.payload.key, ...c.payload.val() }))
-    //   ),
-    //   map((result: any) =>
-    //     result.sort((a: any, b: any) => a.linha.localeCompare(b.linha))
-    //   )
-    // );
+  ) {
+
+    const desviosCollection = collection(this.firestore, 'desvios');
+
+    this.desviosFire$ = collectionData(desviosCollection) as Observable<Desvio[]>;
+    // this.desviosFire$ = this.desviosService
+    //   .list()
+    //   .pipe(
+    //     map((result: any) =>
+    //       result.sort((a: any, b: any) => a.linha.localeCompare(b.linha))
+    //     )
+    //   );
     // this.desviosService
-    //   .listFire()
-    //   .pipe(tap((desvios: Desvios) => (this.contador = desvios.length)))
+    //   .list()
+    //   .pipe(tap((desvios: Desvio[]) => (this.contador = desvios.length)))
     //   .subscribe();
   }
 

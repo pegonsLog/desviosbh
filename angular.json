@@ -96,6 +96,23 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "version": 2
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "desviosbh:build:production",
+              "serveTarget": "desviosbh:serve:production"
+            },
+            "development": {
+              "buildTarget": "desviosbh:build:development",
+              "serveTarget": "desviosbh:serve:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }
