@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "desviosbh"
+  },
+  "targets": {
+    "desviosbh": {
+      "hosting": {
+        "desviosbh": [
+          "desviosbh-d95a7"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

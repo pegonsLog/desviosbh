@@ -40,10 +40,10 @@
 }
 
 .linha {
+
   display: block;
   padding-top: 10px;
   padding-bottom: 10px;
-  padding-left: 15px;
   text-decoration: none;
   color: inherit;
 }
@@ -58,6 +58,7 @@
   height: 38px;
   color: teal;
   display: flex;
+  text-decoration: none;
   align-items: center;
   justify-content: space-between;
   font-size: 1rem;

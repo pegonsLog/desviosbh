@@ -40,14 +40,10 @@
 
   <div class="container">
     <div *ngIf="desviosFire$ | async; else loading">
-      <div *ngFor="let desvio of desviosFire$ | async as Desvios">
-        <div class="link">
-          <div>
-            <a class="linha" href="{{ desvio.link }}" target="_blank">
-              {{ desvio.linha }}
-            </a>
-          </div>
-        </div>
+      <div class="link" *ngFor="let desvio of desviosFire$ | async as Desvios">
+        <a  href="{{ desvio.link }}" target="_blank">
+          {{ desvio.linha }}
+        </a>
       </div>
     </div>
   </div>
