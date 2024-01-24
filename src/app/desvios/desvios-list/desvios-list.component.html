@@ -13,17 +13,17 @@
         type="text"
         id="myTable"
         class="form-control"
-        [formControl]="queryField"
+        [(ngModel)]="queryField"
       />
-      <button
+      <!-- <button
         *ngIf="value"
         matSuffix
         mat-icon-button
         aria-label="Clear"
-        (click)="value = 'teste'"
+        (click)="value = ''"
       >
         <mat-icon>close</mat-icon>
-      </button>
+      </button> -->
     </mat-form-field>
 
 
