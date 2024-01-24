@@ -60,10 +60,11 @@
   display: flex;
   text-decoration: none;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   font-size: 1rem;
   padding-top: 1em;
   padding-bottom: 1em;
+  min-width: 100%;
 }
 
 mat-label {
@@ -92,6 +93,7 @@ button {
 .container {
   height: 500px;
   overflow: auto;
+
 }
 
 .pesquisar {
@@ -190,3 +192,12 @@ mat-toolbar {
 #blocos{
   color: #b34646;
 }
+
+a {
+  color: rgb(7, 37, 170);
+
+  &:visited {
+    color: rgb(7, 37, 170);
+  }
+}
+

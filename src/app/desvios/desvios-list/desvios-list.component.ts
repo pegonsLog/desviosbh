@@ -23,6 +23,7 @@ import { Desvio } from '../../model/desvio';
     MatCardModule,
     MatFormFieldModule,
     MatToolbarModule,
+    MatIconModule,
     ReactiveFormsModule,
     MatSnackBarModule,
     RouterModule,

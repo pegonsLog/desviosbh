@@ -1,7 +1,4 @@
 {
-  "projects": {
-    "default": "desviosbh"
-  },
   "targets": {
     "desviosbh": {
       "hosting": {
@@ -9,14 +6,9 @@
           "desviosbh-d95a7"
         ]
       }
-    },
-    "desvios-carnaval-6aea1": {
-      "hosting": {
-        "desviosbh": [
-          "desvios-carnaval-6aea1"
-        ]
-      }
     }
   },
-  "etags": {}
+  "projects": {
+    "default": "desviosbh"
+  }
 }
