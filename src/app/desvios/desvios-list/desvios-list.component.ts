@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, OnDestroy, inject } from '@angular/core';
 import { Firestore, collection, collectionData } from '@angular/fire/firestore';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,7 +12,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router, RouterModule } from '@angular/router';
-import { Observable, map } from 'rxjs';
+import { Observable, Subscription, map} from 'rxjs';
 import { Desvio } from '../../model/desvio';
 
 @Component({
@@ -37,10 +37,12 @@ import { Desvio } from '../../model/desvio';
   templateUrl: './desvios-list.component.html',
   styleUrl: './desvios-list.component.scss',
 })
-export class DesviosListComponent {
+export class DesviosListComponent implements OnDestroy{
 
   private firestore: Firestore = inject(Firestore);
   desviosFire$: Observable<any>;
+
+  subscription: Subscription = new Subscription()
 
   queryField: string = '';
   value: string = '';
@@ -58,10 +60,13 @@ export class DesviosListComponent {
 
     this.desviosFire$ = collectionData(desviosCollection) as Observable<Desvio[]>;
     this.desviosFire$.pipe(
-        map((result: any) =>
-          result.sort((a: any, b: any) => a.linha.localeCompare(b.linha))
+        map((result: any) => {
+          result.sort((a: any, b: any) => a.linha.localeCompare(b.linha))}
         )
       );
+  }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   blocos() {
@@ -76,16 +81,16 @@ export class DesviosListComponent {
 console.log(value);
     if (value && (value = value.trim()) !== '') {
       this.desviosFire$.pipe(
-        map((desvios) =>
+        map((desvios) => {
           desvios.filter((desvio: any) =>
             desvio.linha.includes(value.toUpperCase())
           )
-        ),
+    }),
         // map((result) =>
         //   result.sort((a: any, b: any) => a.linha.localeCompare(b.linha))
         // ),
         // tap((desvios: Desvios) => (this.contador = desvios.length))
-      );
+      ).subscribe()
     }
   }
 }
