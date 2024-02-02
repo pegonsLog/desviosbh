@@ -12,7 +12,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router, RouterModule } from '@angular/router';
-import { Observable, Subscription, map} from 'rxjs';
+import { Observable, Subscription, from, map, of, tap } from 'rxjs';
 import { Desvio } from '../../model/desvio';
 
 @Component({
@@ -32,38 +32,41 @@ import { Desvio } from '../../model/desvio';
     MatGridListModule,
     MatIconModule,
     CommonModule,
-    FormsModule
+    FormsModule,
   ],
   templateUrl: './desvios-list.component.html',
   styleUrl: './desvios-list.component.scss',
 })
-export class DesviosListComponent implements OnDestroy{
-
+export class DesviosListComponent implements OnDestroy {
   private firestore: Firestore = inject(Firestore);
   desviosFire$: Observable<any>;
-
-  subscription: Subscription = new Subscription()
+  desviosCollection: any;
+  subscription: Subscription = new Subscription();
 
   queryField: string = '';
   value: string = '';
-  // regionais: string[] = [];
-  // regional: string = 'GERAL';
+  desvios: Desvio[] = [];
+  desviosBusca: Desvio[] = [];
+
   contador: number = 0;
   bloco: any;
   // itemsRef: AngularFireList<any>;
 
-  constructor(
-    private router: Router
-  ) {
+  constructor(private router: Router) {
+    this.desviosCollection = collection(this.firestore, 'desvios');
 
-    const desviosCollection = collection(this.firestore, 'desvios');
-
-    this.desviosFire$ = collectionData(desviosCollection) as Observable<Desvio[]>;
+    this.desviosFire$ = collectionData(this.desviosCollection) as Observable<
+      Desvio[]
+    >;
     this.desviosFire$.pipe(
-        map((result: any) => {
-          result.sort((a: any, b: any) => a.linha.localeCompare(b.linha))}
-        )
-      );
+      map((result: any) => {
+        result.sort((a: any, b: any) => a.linha.localeCompare(b.linha));
+      })
+    );
+
+    this.subscription = this.desviosFire$.subscribe(
+      (desvios: any) => (this.desviosBusca = desvios)
+    );
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
@@ -72,25 +75,12 @@ export class DesviosListComponent implements OnDestroy{
   blocos() {
     window.open('https://carnaval-2023-bhtrans.web.app/', '_blank');
   }
-  load() {
-    throw new Error('Method not implemented.');
+  clear() {
+    this.queryField = '';
   }
 
   onSearch() {
-    let value = this.queryField;
-console.log(value);
-    if (value && (value = value.trim()) !== '') {
-      this.desviosFire$.pipe(
-        map((desvios) => {
-          desvios.filter((desvio: any) =>
-            desvio.linha.includes(value.toUpperCase())
-          )
-    }),
-        // map((result) =>
-        //   result.sort((a: any, b: any) => a.linha.localeCompare(b.linha))
-        // ),
-        // tap((desvios: Desvios) => (this.contador = desvios.length))
-      ).subscribe()
+    if (this.queryField !== '') {
     }
   }
 }
